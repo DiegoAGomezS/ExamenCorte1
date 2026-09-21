@@ -19,7 +19,6 @@
     <Label text="Tipo de proyecto"/>
 
     <!--
-        CORRECCIÓN:
         Se crea un ToggleGroup para que solamente
         uno de los dos RadioButton pueda seleccionarse.
     -->

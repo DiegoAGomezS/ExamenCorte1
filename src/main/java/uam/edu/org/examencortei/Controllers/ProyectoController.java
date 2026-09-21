@@ -33,6 +33,7 @@ public class ProyectoController {
     private ImageView imgProyecto;
 
     // Grupo que permite seleccionar un solo tipo de proyecto.
+    @FXML
     private ToggleGroup grupoTipoProyecto;
 
     @FXML
@@ -76,26 +77,59 @@ public class ProyectoController {
     @FXML
     private void registrar() {
 
-        // Obtenemos el RadioButton seleccionado.
-        RadioButton tipo =
-                (RadioButton) grupoTipoProyecto.getSelectedToggle();
-
-        // Comprobamos que se haya seleccionado un tipo.
-        if (tipo == null) {
-
+        // Validar nombre del proyecto
+        if (txtProyecto.getText().trim().isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-
             alerta.setTitle("Registro");
-            alerta.setHeaderText("Tipo de proyecto no seleccionado");
-            alerta.setContentText(
-                    "Debe seleccionar Aplicación Web o Aplicación Móvil."
-            );
-
+            alerta.setHeaderText("Falta información");
+            alerta.setContentText("Debe ingresar el nombre del proyecto.");
             alerta.showAndWait();
-
             return;
         }
 
+        // Validar tipo de proyecto
+        RadioButton tipo =
+                (RadioButton) grupoTipoProyecto.getSelectedToggle();
+
+        if (tipo == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Registro");
+            alerta.setHeaderText("Falta información");
+            alerta.setContentText(
+                    "Debe seleccionar el tipo de proyecto."
+            );
+            alerta.showAndWait();
+            return;
+        }
+
+        // Validar tecnologías
+        if (!chkJava.isSelected()
+                && !chkReact.isSelected()
+                && !chkPostgres.isSelected()) {
+
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Registro");
+            alerta.setHeaderText("Falta información");
+            alerta.setContentText(
+                    "Debe seleccionar al menos una tecnología."
+            );
+            alerta.showAndWait();
+            return;
+        }
+
+        // Validar imagen
+        if (imgProyecto.getImage() == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Registro");
+            alerta.setHeaderText("Falta información");
+            alerta.setContentText(
+                    "Debe seleccionar una imagen del proyecto."
+            );
+            alerta.showAndWait();
+            return;
+        }
+
+        // Obtener tecnologías seleccionadas
         String tecnologias = "";
 
         if (chkJava.isSelected()) {
@@ -110,15 +144,10 @@ public class ProyectoController {
             tecnologias += "PostgreSQL ";
         }
 
-        if (tecnologias.isEmpty()) {
-            tecnologias = "Ninguna";
-        }
-
+        // Mostrar información del proyecto
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
         alert.setTitle("Proyecto registrado");
         alert.setHeaderText("Información del proyecto");
-
         alert.setContentText(
                 "Proyecto: " + txtProyecto.getText()
                         + "\nTipo: " + tipo.getText()
