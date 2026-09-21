@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="uam.edu.org.examencortei.Controllers.ProyectoController"
+      spacing="8">
+
+    <ToolBar>
+        <Button text="Imagen" onAction="#seleccionarImagen"/>
+        <Button text="Registrar" onAction="#registrar"/>
+    </ToolBar>
+
+    <TextField fx:id="txtProyecto"
+               promptText="Nombre del proyecto"/>
+
+    <Label text="Tipo de proyecto"/>
+
+    <!--
+        CORRECCIÓN:
+        Se crea un ToggleGroup para que solamente
+        uno de los dos RadioButton pueda seleccionarse.
+    -->
+    <RadioButton fx:id="rbWeb"
+                 text="Aplicación Web"
+                 toggleGroup="$grupoTipoProyecto"/>
+
+    <RadioButton fx:id="rbMovil"
+                 text="Aplicación Móvil"
+                 toggleGroup="$grupoTipoProyecto"/>
+
+    <CheckBox fx:id="chkJava" text="Java"/>
+    <CheckBox fx:id="chkReact" text="React"/>
+    <CheckBox fx:id="chkPostgres" text="PostgreSQL"/>
+
+    <ImageView fx:id="imgProyecto"
+               fitWidth="180"
+               fitHeight="120"
+               preserveRatio="true"/>
+
+    <!--
+        ToggleGroup utilizado por los dos RadioButton.
+    -->
+    <fx:define>
+        <ToggleGroup fx:id="grupoTipoProyecto"/>
+    </fx:define>
+
+</VBox>
